@@ -572,11 +572,92 @@ footer {
   <br><br> real token trading is available yet.
 </footer>
 <script>
-function connectWallet() {
 
-  alert("Phantom integration will be added in the next development phase.");
+let runfunProvider = null;
+let runfunAddress = null;
+
+function updateWalletButton(address) {
+  const button = document.querySelector(".connect");
+
+  if (!button) return;
+
+  button.textContent =
+    address.slice(0, 4) + "..." + address.slice(-4);
+
+  button.title = address;
+  button.onclick = disconnectWallet;
 }
 
+function resetWalletButton() {
+  const button = document.querySelector(".connect");
+
+  runfunAddress = null;
+  runfunProvider = null;
+
+  if (button) {
+    button.textContent = "Connect Wallet";
+    button.onclick = connectWallet;
+  }
+}
+
+async function connectWallet() {
+  try {
+    const provider =
+      window.phantom?.solana || window.solana;
+
+    if (!provider || !provider.isPhantom) {
+      alert(
+        "Phantom tidak terdeteksi. Silakan buka PumpFun melalui browser di dalam aplikasi Phantom."
+      );
+      return;
+    }
+
+    const response = await provider.connect();
+
+    runfunProvider = provider;
+    runfunAddress = response.publicKey.toString();
+
+    updateWalletButton(pumpfunAddress);
+
+    alert(
+      "PUMPFUN berhasil terhubung!\n\nWallet:\n" +
+      pumpfunAddress
+    );
+
+    provider.on("disconnect", resetWalletButton);
+
+    provider.on("accountChanged", (publicKey) => {
+      if (publicKey) {
+        pumpfunAddress = publicKey.toString();
+        updateWalletButton(pumpfunAddress);
+      } else {
+        resetWalletButton();
+      }
+    });
+
+  } catch (error) {
+    console.error("Phantom connection error:", error);
+
+    alert(
+      "Koneksi wallet gagal: " +
+      (error.message || "Silakan coba lagi.")
+    );
+  }
+}
+
+async function disconnectWallet() {
+  try {
+    if (pumpfunProvider) {
+      await pumpfunProvider.disconnect();
+    }
+
+    resetWalletButton();
+
+  } catch (error) {
+    alert("Gagal memutuskan koneksi wallet.");
+  }
+  }
+  
 function createToken() {
   alert("Token creation will be enabled after Solana Devnet integration.");
 }
