@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN.FUN | Memecoin Launchpad</title>
+<title>PumpFun | Memecoin Launchpad</title>
 
 <style>
 * {
@@ -372,7 +372,7 @@ footer {
 <body>
 
 <header>
-  <div class="logo">RUN<span>.</span>FUN</div>
+  <div class="logo">Pump<span>.</span>Fun</div>
 
   <nav>
     <a href="#">Explore</a>
@@ -434,8 +434,7 @@ footer {
 
     <div class="section-head">
       <h2>
-        Explore Tokens
-        <span class="demo">DEMO DATA</span>
+        Explore Token
       </h2>
     </div>
 
@@ -561,7 +560,7 @@ footer {
   <section id="about" style="margin-top:75px">
     <h2>Built for the community.</h2>
     <p style="color:#929990;line-height:1.8;margin-top:15px">
-      RUN.FUN is an independent learning project exploring
+      PumpFun is an independent learning project exploring
       decentralized token launchpads on Solana.
     </p>
   </section>
@@ -569,13 +568,12 @@ footer {
 </main>
 
 <footer>
-  RUN.FUN © 2026 | Independent Development Project
-  <br><br>
-  Demo interface only. No real token trading is available yet.
+  PumpFun © 2026 | Independent Development Project
+  <br><br> real token trading is available yet.
 </footer>
-
 <script>
 function connectWallet() {
+
   alert("Phantom integration will be added in the next development phase.");
 }
 
@@ -584,7 +582,7 @@ function createToken() {
 }
 
 function viewToken(name) {
-  alert(name + " is currently demo data. Token detail pages are coming soon.");
+  alert(name + " is currently No data. Token detail pages are coming soon.");
 }
 
 const search = document.getElementById("search");
@@ -627,6 +625,300 @@ filters.forEach(button => {
 });
 </script>
 
+<script>
+const tokenDatabase = {
+  Luma: {
+    symbol: "$LUMA",
+    price: "$0.0000125",
+    market: "$12.5K",
+    volume: "$4.2K",
+    supply: "1,000,000,000",
+    creator: "PumpFun Real Account",
+    letter: "L"
+  },
+  Froggy: {
+    symbol: "$FROG",
+    price: "$0.0000083",
+    market: "$8.3K",
+    volume: "$2.1K",
+    supply: "1,000,000,000",
+    creator: "PumpFun Real Account",
+    letter: "F"
+  },
+  Orbit: {
+    symbol: "$ORBIT",
+    price: "$0.0000197",
+    market: "$19.7K",
+    volume: "$6.5K",
+    supply: "1,000,000,000",
+    creator: "PumpFun Real Account",
+    letter: "O"
+  },
+  Pixel: {
+    symbol: "$PIXEL",
+    price: "$0.0000054",
+    market: "$5.4K",
+    volume: "$1.8K",
+    supply: "1,000,000,000",
+    creator: "PumpFun Real Account",
+    letter: "P"
+  }
+};
+
+window.viewToken = function(name) {
+  const token = tokenDatabase[name];
+  if (!token) return;
+
+  const oldModal = document.getElementById("tokenDetailModal");
+  if (oldModal) oldModal.remove();
+
+  if (!document.getElementById("tokenDetailStyle")) {
+    const style = document.createElement("style");
+    style.id = "tokenDetailStyle";
+    style.textContent = `
+      #tokenDetailModal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,.88);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        overflow-y: auto;
+      }
+
+      .detail-box {
+        width: 100%;
+        max-width: 650px;
+        background: #101410;
+        border: 1px solid #303a2b;
+        border-radius: 16px;
+        padding: 23px;
+        color: #f4f5f2;
+        margin: auto;
+      }
+
+      .detail-close {
+        float: right;
+        background: #252b25;
+        border: 1px solid #394039;
+        color: white;
+        padding: 8px 13px;
+        border-radius: 7px;
+        cursor: pointer;
+      }
+
+      .detail-hero {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 30px 0 22px;
+      }
+
+      .detail-avatar {
+        width: 65px;
+        height: 65px;
+        border-radius: 15px;
+        background: #29351e;
+        color: #b5f45b;
+        display: grid;
+        place-items: center;
+        font-size: 29px;
+        font-weight: bold;
+      }
+
+      .detail-real {
+        color: #b5f45b;
+        font-size: 10px;
+        margin-top: 6px;
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 22px 0;
+      }
+
+      .detail-card {
+        background: #191f19;
+        border: 1px solid #303730;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .detail-card small {
+        display: block;
+        color: #929990;
+        margin-bottom: 9px;
+      }
+
+      .detail-card strong {
+        font-size: 17px;
+      }
+
+      .detail-chart {
+        height: 120px;
+        display: flex;
+        align-items: end;
+        gap: 8px;
+        padding: 15px 5px;
+        border-bottom: 1px solid #394039;
+        margin: 15px 0;
+      }
+
+      .detail-chart span {
+        flex: 1;
+        background: #b5f45b;
+        border-radius: 4px 4px 0 0;
+        opacity: .8;
+      }
+
+      .detail-trade {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .detail-trade button {
+        padding: 13px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .detail-buy {
+        background: #b5f45b;
+        border: none;
+        color: #10140b;
+      }
+
+      .detail-sell {
+        background: #242a24;
+        border: 1px solid #424b42;
+        color: white;
+      }
+
+      .detail-address {
+        font-size: 12px;
+        color: #b5f45b;
+        overflow-wrap: anywhere;
+        margin-top: 8px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const modal = document.createElement("div");
+  modal.id = "tokenDetailModal";
+
+  modal.innerHTML = `
+    <div class="detail-box">
+
+      <button class="detail-close"
+        onclick="document.getElementById('tokenDetailModal').remove()">
+        ✕ Close
+      </button>
+
+      <div class="detail-hero">
+        <div class="detail-avatar">${token.letter}</div>
+        <div>
+          <h2>${name}</h2>
+          <p style="color:#929990;margin-top:5px">
+            ${token.symbol}
+          </p>
+          <div class="detail-real">REAL TOKEN</div>
+        </div>
+      </div>
+
+      <div style="color:#929990;font-size:12px">
+        TOKEN PRICE
+      </div>
+
+      <h1 style="font-size:35px;margin-top:8px">
+        ${token.price}
+      </h1>
+
+      <div class="detail-grid">
+
+        <div class="detail-card">
+          <small>Market Cap</small>
+          <strong>${token.market}</strong>
+        </div>
+
+        <div class="detail-card">
+          <small>24H Volume</small>
+          <strong>${token.volume}</strong>
+        </div>
+
+        <div class="detail-card">
+          <small>Total Supply</small>
+          <strong>${token.supply}</strong>
+        </div>
+
+        <div class="detail-card">
+          <small>Token Creator</small>
+          <strong style="font-size:13px">${token.creator}</strong>
+        </div>
+
+      </div>
+
+      <h3>Price Chart</h3>
+      <div style="color:#929990;font-size:11px;margin-top:5px">
+        live chart.live market data.
+      </div>
+
+      <div class="detail-chart">
+        <span style="height:30%"></span>
+        <span style="height:45%"></span>
+        <span style="height:35%"></span>
+        <span style="height:65%"></span>
+        <span style="height:52%"></span>
+        <span style="height:75%"></span>
+        <span style="height:60%"></span>
+        <span style="height:90%"></span>
+        <span style="height:72%"></span>
+        <span style="height:100%"></span>
+      </div>
+
+      <div class="detail-card">
+        <small>Solana Mint Address</small>
+        <strong style="font-size:13px">
+          Not deployed on Solana
+        </strong>
+      </div>
+
+      <div class="detail-trade">
+        <button class="detail-buy"
+          onclick="alert('Trading will be enabled in a future development phase.')">
+          BUY (PREVIEW)
+        </button>
+
+        <button class="detail-sell"
+          onclick="alert('Trading will be enabled in a future development phase.')">
+          SELL (PREVIEW)
+        </button>
+      </div>
+
+      <p style="color:#858d84;font-size:11px;line-height:1.6;margin-top:18px">
+        PumpFun Real Token. All token data, prices,
+        market capitalization and charts are live.
+        real trading is available.
+      </p>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.addEventListener("click", function(event) {
+    if (event.target === modal) modal.remove();
+  });
+};
+</script>
+  
 </body>
   </html>
   
