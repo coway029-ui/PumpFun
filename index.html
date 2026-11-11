@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUN.FUN | Memecoin Launchpad</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #090b0a;
+  color: #f4f5f2;
+  font-family: Arial, sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+header {
+  height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #242824;
+  background: #0d100e;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.logo span {
+  color: #b5f45b;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  color: #a5aaa3;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #b5f45b;
+}
+
+.connect {
+  background: #b5f45b;
+  color: #10140b;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 19px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 55px 25px;
+}
+
+.hero {
+  padding: 55px 0 45px;
+}
+
+.tag {
+  display: inline-block;
+  color: #b5f45b;
+  border: 1px solid #43542d;
+  background: #182014;
+  border-radius: 30px;
+  padding: 7px 13px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: clamp(42px, 8vw, 76px);
+  letter-spacing: -4px;
+  line-height: 1.04;
+  max-width: 750px;
+}
+
+h1 span {
+  color: #b5f45b;
+}
+
+.hero p {
+  color: #969d95;
+  margin-top: 20px;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.primary, .secondary {
+  padding: 14px 22px;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.primary {
+  background: #b5f45b;
+  border: none;
+  color: #11150c;
+}
+
+.secondary {
+  background: #171b18;
+  border: 1px solid #303730;
+  color: white;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 30px 0 60px;
+}
+
+.stat {
+  padding: 22px;
+  border: 1px solid #272d28;
+  background: #111512;
+  border-radius: 12px;
+}
+
+.stat small {
+  color: #858d84;
+  font-size: 12px;
+}
+
+.stat h2 {
+  font-size: 25px;
+  margin-top: 12px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.section-head h2 {
+  font-size: 23px;
+}
+
+.demo {
+  color: #b5f45b;
+  font-size: 10px;
+  border: 1px solid #43542d;
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.search {
+  width: 100%;
+  max-width: 350px;
+  background: #111512;
+  border: 1px solid #303730;
+  color: white;
+  border-radius: 9px;
+  padding: 13px 15px;
+  outline: none;
+}
+
+.search:focus {
+  border-color: #b5f45b;
+}
+
+.filters {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.filter {
+  padding: 9px 16px;
+  border: 1px solid #303730;
+  background: #111512;
+  color: #a5aaa3;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.filter.active {
+  background: #b5f45b;
+  color: #11150c;
+  border-color: #b5f45b;
+  font-weight: bold;
+}
+
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.token {
+  border: 1px solid #292f2a;
+  background: #111512;
+  border-radius: 13px;
+  padding: 20px;
+  transition: border-color .2s;
+}
+
+.token:hover {
+  border-color: #b5f45b;
+}
+
+.token-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.avatar {
+  width: 49px;
+  height: 49px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  background: #29351e;
+  color: #b5f45b;
+}
+
+.token h3 {
+  font-size: 16px;
+}
+
+.token small {
+  color: #858d84;
+  font-size: 12px;
+}
+
+.token-label {
+  margin-left: auto;
+  font-size: 10px;
+  color: #b5f45b;
+  background: #1b2615;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.token-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 23px;
+  padding-top: 17px;
+  border-top: 1px solid #292f2a;
+}
+
+.token-info small {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.token-info strong {
+  font-size: 14px;
+}
+
+.token button {
+  width: 100%;
+  margin-top: 19px;
+  background: #1a201a;
+  color: #b5f45b;
+  border: 1px solid #35422d;
+  padding: 11px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.empty {
+  display: none;
+  color: #999;
+  padding: 30px 0;
+}
+
+footer {
+  margin-top: 85px;
+  padding: 30px 7%;
+  border-top: 1px solid #272d28;
+  color: #747d74;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media(max-width: 650px) {
+  header {
+    padding: 0 18px;
+    height: 65px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  main {
+    padding: 25px 17px;
+  }
+
+  .hero {
+    padding: 45px 0 25px;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  .stats {
+    gap: 8px;
+    margin-bottom: 45px;
+  }
+
+  .stat {
+    padding: 13px 10px;
+  }
+
+  .stat h2 {
+    font-size: 17px;
+  }
+
+  .stat small {
+    font-size: 10px;
+  }
+
+  .token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search {
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">RUN<span>.</span>FUN</div>
+
+  <nav>
+    <a href="#">Explore</a>
+    <a href="#tokens">Trending</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <button class="connect" onclick="connectWallet()">
+    Connect Wallet
+  </button>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="tag">SOLANA MEMECOIN LAUNCHPAD</div>
+
+    <h1>
+      Launch ideas.<br>
+      <span>Explore tokens.</span>
+    </h1>
+
+    <p>
+      Discover new tokens, explore emerging communities,
+      and experience the next generation of decentralized
+      token launches on Solana.
+    </p>
+
+    <div class="hero-actions">
+      <button class="primary" onclick="createToken()">
+        + Create Token
+      </button>
+
+      <button class="secondary"
+        onclick="document.getElementById('tokens').scrollIntoView({behavior:'smooth'})">
+        Explore Tokens
+      </button>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <small>Total Tokens</small>
+      <h2>128</h2>
+    </div>
+
+    <div class="stat">
+      <small>24H Volume</small>
+      <h2>$24.8K</h2>
+    </div>
+
+    <div class="stat">
+      <small>Active Traders</small>
+      <h2>1,024</h2>
+    </div>
+  </section>
+
+  <section id="tokens">
+
+    <div class="section-head">
+      <h2>
+        Explore Tokens
+        <span class="demo">DEMO DATA</span>
+      </h2>
+    </div>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="Search token name or symbol..."
+    >
+
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="trending">Trending</button>
+      <button class="filter" data-filter="new">New</button>
+    </div>
+
+    <div class="token-grid" id="tokenGrid">
+
+      <article class="token" data-type="trending">
+        <div class="token-top">
+          <div class="avatar">L</div>
+          <div>
+            <h3>Luma</h3>
+            <small>$LUMA</small>
+          </div>
+          <span class="token-label">TRENDING</span>
+        </div>
+
+        <div class="token-info">
+          <div>
+            <small>Market Cap</small>
+            <strong>$12.5K</strong>
+          </div>
+          <div>
+            <small>24H Volume</small>
+            <strong>$4.2K</strong>
+          </div>
+        </div>
+
+        <button onclick="viewToken('Luma')">View Token</button>
+      </article>
+
+      <article class="token" data-type="new">
+        <div class="token-top">
+          <div class="avatar">F</div>
+          <div>
+            <h3>Froggy</h3>
+            <small>$FROG</small>
+          </div>
+          <span class="token-label">NEW</span>
+        </div>
+
+        <div class="token-info">
+          <div>
+            <small>Market Cap</small>
+            <strong>$8.3K</strong>
+          </div>
+          <div>
+            <small>24H Volume</small>
+            <strong>$2.1K</strong>
+          </div>
+        </div>
+
+        <button onclick="viewToken('Froggy')">View Token</button>
+      </article>
+
+      <article class="token" data-type="trending">
+        <div class="token-top">
+          <div class="avatar">O</div>
+          <div>
+            <h3>Orbit</h3>
+            <small>$ORBIT</small>
+          </div>
+          <span class="token-label">TRENDING</span>
+        </div>
+
+        <div class="token-info">
+          <div>
+            <small>Market Cap</small>
+            <strong>$19.7K</strong>
+          </div>
+          <div>
+            <small>24H Volume</small>
+            <strong>$6.5K</strong>
+          </div>
+        </div>
+
+        <button onclick="viewToken('Orbit')">View Token</button>
+      </article>
+
+      <article class="token" data-type="new">
+        <div class="token-top">
+          <div class="avatar">P</div>
+          <div>
+            <h3>Pixel</h3>
+            <small>$PIXEL</small>
+          </div>
+          <span class="token-label">NEW</span>
+        </div>
+
+        <div class="token-info">
+          <div>
+            <small>Market Cap</small>
+            <strong>$5.4K</strong>
+          </div>
+          <div>
+            <small>24H Volume</small>
+            <strong>$1.8K</strong>
+          </div>
+        </div>
+
+        <button onclick="viewToken('Pixel')">View Token</button>
+      </article>
+
+    </div>
+
+    <p class="empty" id="empty">
+      No tokens found.
+    </p>
+
+  </section>
+
+  <section id="about" style="margin-top:75px">
+    <h2>Built for the community.</h2>
+    <p style="color:#929990;line-height:1.8;margin-top:15px">
+      RUN.FUN is an independent learning project exploring
+      decentralized token launchpads on Solana.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  RUN.FUN © 2026 | Independent Development Project
+  <br><br>
+  Demo interface only. No real token trading is available yet.
+</footer>
+
+<script>
+function connectWallet() {
+  alert("Phantom integration will be added in the next development phase.");
+}
+
+function createToken() {
+  alert("Token creation will be enabled after Solana Devnet integration.");
+}
+
+function viewToken(name) {
+  alert(name + " is currently demo data. Token detail pages are coming soon.");
+}
+
+const search = document.getElementById("search");
+const tokens = document.querySelectorAll(".token");
+const filters = document.querySelectorAll(".filter");
+const empty = document.getElementById("empty");
+
+let activeFilter = "all";
+
+function updateTokens() {
+  const query = search.value.toLowerCase();
+  let visible = 0;
+
+  tokens.forEach(token => {
+    const matchesSearch = token.innerText.toLowerCase().includes(query);
+    const matchesFilter =
+      activeFilter === "all" || token.dataset.type === activeFilter;
+
+    const show = matchesSearch && matchesFilter;
+
+    token.style.display = show ? "block" : "none";
+
+    if (show) visible++;
+  });
+
+  empty.style.display = visible === 0 ? "block" : "none";
+}
+
+search.addEventListener("input", updateTokens);
+
+filters.forEach(button => {
+  button.addEventListener("click", () => {
+    filters.forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+    activeFilter = button.dataset.filter;
+
+    updateTokens();
+  });
+});
+</script>
+
+</body>
+  </html>
+  
